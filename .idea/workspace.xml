@@ -4,11 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43666b92-5ed4-450d-9092-fd7c45a07a5a" name="Changes" comment="" />
+    <list default="true" id="43666b92-5ed4-450d-9092-fd7c45a07a5a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/NowChallenge.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Search/Binary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Search/Linear.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Sort/bubble.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Sort/insertion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Sort/interchange.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Sort/merge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Sort/quick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/algorithms/Sort/selection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data/customers.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data/drivers.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data/rides.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/LinkedList/Circular.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/LinkedList/Doubly.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/LinkedList/Singly.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/StackNQueue/Queue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/StackNQueue/Stack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/Tree/AVL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/Tree/BinarySearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/Tree/BinaryTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/Tree/GeneralTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/Tree/Heap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/data_structures/Tree/Traversals.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/models/Customers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/models/Drivers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/models/Rides.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/services/booking_service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/services/customer_service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/services/driver_service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/services/ride_service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/utils/distance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/utils/file_io.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinRide-Backend/src/utils/undo.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\sieud\.android\avd\Small_Phone.avd)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -20,9 +66,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "SieuDoge"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/SieuDoge/MinRide.git",
+    "accountId": "883665c7-a2ca-4b9d-a107-f56409b7cc91"
+  }
+}]]></component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="C:\Users\sieud\.gradle\wrapper\dists\gradle-8.13-bin\5xuhj0ry160q40clulazy9h7d\gradle-8.13" javaHome="C:\Program Files\Java\jdk-21" gradleVersion="8.13" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
   <component name="ProjectId" id="36uuyDQrWDyJJDEsKcLEV7RvyeO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,13 +89,83 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.MinRide [:app:Main.main()].executor": "Run",
+    "Gradle.MinRide [:core:Main.main()].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Project/DSA/NowChallenge/MinRide",
     "onboarding.tips.debug.path": "F:/Project/DSA/NowChallenge/NowChallenge/src/Main.java"
   }
 }]]></component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="Minride.app" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Minride.core.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android App.app" />
+      <item itemvalue="Application.Main" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="43666b92-5ed4-450d-9092-fd7c45a07a5a" name="Changes" comment="" />
