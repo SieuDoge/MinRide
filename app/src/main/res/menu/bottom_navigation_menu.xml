@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/nav_home"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="Home" />
+
+    <item
+            android:id="@+id/nav_drivers"
+            android:icon="@android:drawable/ic_menu_mylocation"
+            android:title="Drivers" />
+
+    <item
+            android:id="@+id/nav_customers"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Customers" />
+
+    <item
+            android:id="@+id/nav_rides"
+            android:icon="@android:drawable/ic_menu_directions"
+            android:title="Rides" />
+
+    <item
+            android:id="@+id/nav_booking"
+            android:icon="@android:drawable/ic_menu_add"
+            android:title="Booking" />
+</menu>
