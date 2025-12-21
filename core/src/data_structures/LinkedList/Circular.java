@@ -1,13 +1,13 @@
 package data_structures.LinkedList;
 
-public class Circular {
+public class Circular<T> {
 
     /* ================= NODE ================= */
     private class Node {
-        int data;
+        T data;
         Node next;
 
-        Node(int data) {
+        Node(T data) {
             this.data = data;
             this.next = null;
         }
@@ -16,9 +16,10 @@ public class Circular {
     /* ============== LINKED LIST ============== */
     private Node head = null;
     private Node tail = null;
+    private int size = 0;
 
     /* ========== THÊM PHẦN TỬ CUỐI ========== */
-    public void addLast(int data) {
+    public void addLast(T data) {
         Node newNode = new Node(data);
 
         // Danh sách rỗng
@@ -32,6 +33,7 @@ public class Circular {
             tail = newNode;
             tail.next = head;      // giữ vòng tròn
         }
+        size++;
     }
 
     /* ========== HIỂN THỊ DANH SÁCH ========== */
@@ -51,12 +53,12 @@ public class Circular {
     }
 
     /* ========== TÌM KIẾM ========== */
-    public boolean search(int key) {
+    public boolean search(T key) {
         if (head == null) return false;
 
         Node temp = head;
         do {
-            if (temp.data == key)
+            if (temp.data.equals(key))
                 return true;
             temp = temp.next;
         } while (temp != head);
@@ -77,6 +79,7 @@ public class Circular {
             head = head.next;
             tail.next = head;
         }
+        size--;
     }
 
     /* ========== XÓA PHẦN TỬ CUỐI ========== */
@@ -86,6 +89,7 @@ public class Circular {
         // Chỉ có 1 node
         if (head == tail) {
             head = tail = null;
+            size--;
             return;
         }
 
@@ -96,5 +100,10 @@ public class Circular {
 
         temp.next = head;
         tail = temp;
+        size--;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

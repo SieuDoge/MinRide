@@ -1,14 +1,14 @@
 package data_structures.LinkedList;
 
-public class Doubly {
+public class Doubly<T> {
 
     /* ========== NODE ========== */
     private class Node {
-        int data;
+        T data;
         Node prev;
         Node next;
 
-        Node(int data) {
+        Node(T data) {
             this.data = data;
             this.prev = null;
             this.next = null;
@@ -18,9 +18,10 @@ public class Doubly {
     /* ========== LIST ========== */
     private Node head = null;
     private Node tail = null;
+    private int size = 0;
 
     /* ========== THÊM CUỐI ========== */
-    public void addLast(int data) {
+    public void addLast(T data) {
         Node newNode = new Node(data);
 
         if (head == null) {
@@ -30,6 +31,7 @@ public class Doubly {
             newNode.prev = tail;
             tail = newNode;
         }
+        size++;
     }
 
     /* ========== HIỂN THỊ TỪ ĐẦU ========== */
@@ -53,10 +55,10 @@ public class Doubly {
     }
 
     /* ========== TÌM KIẾM ========== */
-    public boolean search(int key) {
+    public boolean search(T key) {
         Node temp = head;
         while (temp != null) {
-            if (temp.data == key)
+            if (temp.data.equals(key))
                 return true;
             temp = temp.next;
         }
@@ -73,6 +75,7 @@ public class Doubly {
             head = head.next;
             head.prev = null;
         }
+        size--;
     }
 
     /* ========== XÓA CUỐI ========== */
@@ -85,5 +88,10 @@ public class Doubly {
             tail = tail.prev;
             tail.next = null;
         }
+        size--;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

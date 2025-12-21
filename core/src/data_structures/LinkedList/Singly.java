@@ -1,13 +1,13 @@
 package data_structures.LinkedList;
 
-public class Singly {
+public class Singly<T> {
 
     /* ========== NODE ========== */
     private class Node {
-        int data;
+        T data;
         Node next;
 
-        Node(int data) {
+        Node(T data) {
             this.data = data;
             this.next = null;
         }
@@ -15,21 +15,20 @@ public class Singly {
 
     /* ========== LIST ========== */
     private Node head = null;
+    private Node tail = null;
+    private int size = 0;
 
     /* ========== THÊM CUỐI ========== */
-    public void addLast(int data) {
+    public void addLast(T data) {
         Node newNode = new Node(data);
 
         if (head == null) {
-            head = newNode;
-            return;
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
         }
-
-        Node temp = head;
-        while (temp.next != null) {
-            temp = temp.next;
-        }
-        temp.next = newNode;
+        size++;
     }
 
     /* ========== HIỂN THỊ ========== */
@@ -43,10 +42,10 @@ public class Singly {
     }
 
     /* ========== TÌM KIẾM ========== */
-    public boolean search(int key) {
+    public boolean search(T key) {
         Node temp = head;
         while (temp != null) {
-            if (temp.data == key)
+            if (temp.data.equals(key))
                 return true;
             temp = temp.next;
         }
@@ -55,24 +54,35 @@ public class Singly {
 
     /* ========== XÓA ĐẦU ========== */
     public void deleteFirst() {
-        if (head != null)
-            head = head.next;
+        if (head == null) return;
+
+        head = head.next;
+        size--;
+
+        if (head == null) {
+            tail = null;
+        }
     }
 
     /* ========== XÓA CUỐI ========== */
     public void deleteLast() {
         if (head == null) return;
 
-        if (head.next == null) {
-            head = null;
-            return;
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            Node temp = head;
+            while (temp.next != tail) {
+                temp = temp.next;
+            }
+            tail = temp;
+            tail.next = null;
         }
+        size--;
+    }
 
-        Node temp = head;
-        while (temp.next.next != null) {
-            temp = temp.next;
-        }
-        temp.next = null;
+    public int getSize() {
+        return size;
     }
 }
 
