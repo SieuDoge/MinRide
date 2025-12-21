@@ -16,6 +16,8 @@ public abstract class Person {
     public String getId() { return id; }
     public String getName() { return name; }
     public Location getLocation() { return location; }
+    public int getX() { return location.getX(); }
+    public int getY() { return location.getY(); }
 
     @Override
     public String toString() {
