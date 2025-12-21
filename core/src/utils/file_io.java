@@ -4,8 +4,10 @@ import data_structures.LinkedList.Singly;
 import models.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class file_io {
@@ -131,7 +133,52 @@ public class file_io {
             System.out.println("Đã tải xong danh sách Rides từ " + filename);
         } catch (IOException e) {
             System.err.println("Lỗi đọc file Rides: " + e.getMessage());
-        } // Đóng catch
+        }
         return list;
-    } // Đóng hàm
+    }
+
+
+    // ================== GHI FILE (APPEND) ==================
+
+    public static void saveDriver(Drivers driver, String filename) {
+        String filePath = DATA_Dir + filename;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            // Format: ID, Name, Rating, x, y
+            String line = driver.getId() + "," + driver.getName() + "," + driver.getRating() + "," +
+                          driver.getX() + "," + driver.getY();
+            bw.write(line);
+            bw.newLine();
+            System.out.println("Đã lưu driver: " + driver.getName());
+        } catch (IOException e) {
+            System.err.println("Lỗi ghi file Driver: " + e.getMessage());
+        }
+    }
+
+    public static void saveCustomer(Customers customer, String filename) {
+        String filePath = DATA_Dir + filename;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            // Format: ID, Name, x, y
+            String line = customer.getId() + "," + customer.getName() + "," +
+                          customer.getX() + "," + customer.getY();
+            bw.write(line);
+            bw.newLine();
+            System.out.println("Đã lưu customer: " + customer.getName());
+        } catch (IOException e) {
+            System.err.println("Lỗi ghi file Customer: " + e.getMessage());
+        }
+    }
+
+    public static void saveRide(Rides ride, String filename) {
+        String filePath = DATA_Dir + filename;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            // Format khớp với loadRides: rideID, cusID, drvId, distance, fare
+            String line = ride.getRideId() + "," + ride.getCustomerId() + "," + ride.getDriverId() + "," +
+                          ride.getDistance() + "," + ride.getFare();
+            bw.write(line);
+            bw.newLine();
+            System.out.println("Đã lưu ride: " + ride.getRideId());
+        } catch (IOException e) {
+            System.err.println("Lỗi ghi file Ride: " + e.getMessage());
+        }
+    }
 }
