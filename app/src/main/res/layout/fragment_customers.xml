@@ -16,62 +16,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Driver Management"
+                android:text="Customer Management"
                 android:textColor="#FFFFFF"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
-        <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/notification_circle"
-                android:gravity="center"
-                android:text="🔔"
-                android:textSize="20sp" />
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/notification_circle"
+                    android:gravity="center"
+                    android:text="🔔"
+                    android:textSize="20sp" />
+
+            <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/profile_circle"
+                    android:src="@drawable/ic_profile" />
+        </LinearLayout>
     </RelativeLayout>
 
-    <!-- Search Bar -->
-    <androidx.cardview.widget.CardView
+    <!-- Add Customer Button -->
+    <Button
+            android:id="@+id/btnAddCustomer"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="#3A3A4E"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp">
+            android:background="@drawable/add_customer_button_bg"
+            android:text="+ Add Customer"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-            <TextView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:gravity="center"
-                    android:text="🔍"
-                    android:textSize="18sp" />
-
-            <EditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="12dp"
-                    android:background="@null"
-                    android:hint="Search by name or ID..."
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#8E8E93"
-                    android:textSize="16sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Sort and Add Button Row -->
+    <!-- Search and Filter Row -->
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,15 +69,14 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
-        <!-- Sort Dropdown -->
+        <!-- Search Bar -->
         <androidx.cardview.widget.CardView
-                android:id="@+id/layoutSort"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginEnd="12dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="#3A3A4E"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="28dp"
                 app:cardElevation="0dp">
 
             <LinearLayout
@@ -96,33 +84,51 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp">
 
                 <TextView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:gravity="center"
-                        android:text="≡"
-                        android:textColor="#8E8E93"
-                        android:textSize="20sp" />
+                        android:text="🔍"
+                        android:textSize="18sp" />
 
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                <EditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:text="Sort: "
-                        android:textColor="#8E8E93"
-                        android:textSize="16sp" />
+                        android:background="@null"
+                        android:hint="Search name or ID"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#8E8E93"
+                        android:textSize="14sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- District Filter -->
+        <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                app:cardBackgroundColor="#3A3A4E"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp">
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name"
-                        android:textColor="#00D9FF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="Filter"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp" />
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -133,19 +139,6 @@
                         android:textSize="12sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-        <!-- Add New Button -->
-        <Button
-                android:id="@+id/btnAddNew"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="@drawable/add_button_bg"
-                android:text="+ Add New"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Table Header -->
@@ -162,17 +155,8 @@
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="DRIVER"
-                android:textColor="#8E8E93"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RATING"
+                android:text="ID"
                 android:textColor="#8E8E93"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -180,8 +164,8 @@
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="LOCATION"
+                android:layout_weight="2"
+                android:text="NAME"
                 android:textColor="#8E8E93"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -197,13 +181,25 @@
                 android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Driver List -->
+    <!-- Customer List -->
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDrivers"
+            android:id="@+id/rvCustomers"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingStart="24dp"
-            android:paddingEnd="24dp"/>
+            android:paddingEnd="24dp" />
+
+    <!-- See More Button -->
+    <TextView
+            android:id="@+id/tvSeeMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="See More"
+            android:textColor="#8E8E93"
+            android:textSize="14sp" />
 
 </LinearLayout>
