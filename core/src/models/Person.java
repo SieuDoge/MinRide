@@ -11,7 +11,7 @@ public abstract class Person {
         this.location = new Location(x, y);
     }
 
-    public abstract String getRole();
+    public abstract String getID();
 
     public String getId() { return id; }
     public String getName() { return name; }
@@ -21,6 +21,6 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s - Loc: %s", getRole(), name, location);
+        return String.format("[%s] %s - Location: %s", getID(), name, location);
     }
 }
