@@ -1,36 +1,39 @@
 package data_structures.StackNQueue;
 
-public class Stack {
-    private int[] stack;
+import java.util.Arrays;
+
+public class Stack<T> {
+    private Object[] stack;
     private int top;
 
     public Stack(int capacity) {
-        stack = new int[capacity];
+        stack = new Object[capacity];
         top = -1;
     }
 
     // Thêm phần tử (push)
-    public void push(int x) {
+    public void push(T x) {
         if (top == stack.length - 1) {
-            System.out.println("Stack overflow");
-            return;
+            // Resize if needed, or just print error
+            // For this challenge, let's resize
+             stack = Arrays.copyOf(stack, stack.length * 2);
         }
         stack[++top] = x;
     }
 
     // Xóa phần tử (pop)
-    public int pop() {
+    public T pop() {
         if (top == -1) {
             System.out.println("Stack underflow");
-            return -1;
+            return null;
         }
-        return stack[top--];
+        return (T) stack[top--];
     }
 
     // Xem phần tử trên cùng
-    public int peek() {
-        if (top == -1) return -1;
-        return stack[top];
+    public T peek() {
+        if (top == -1) return null;
+        return (T) stack[top];
     }
 
     // Kiểm tra rỗng

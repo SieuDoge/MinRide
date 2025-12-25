@@ -81,6 +81,43 @@ public class Singly<T> {
         size--;
     }
 
+    /* ========== CÁC HÀM HỖ TRỢ (HELPER) ========== */
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    public T get(int index) {
+        if (index < 0 || index >= size) return null;
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp.data;
+    }
+
+    public void set(int index, T data) {
+        if (index < 0 || index >= size) return;
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        temp.data = data;
+    }
+    
+    // Convert to Array for easier sorting (if needed)
+    public Object[] toArray() {
+        Object[] arr = new Object[size];
+        Node temp = head;
+        int i = 0;
+        while (temp != null) {
+            arr[i++] = temp.data;
+            temp = temp.next;
+        }
+        return arr;
+    }
+
     public int getSize() {
         return size;
     }

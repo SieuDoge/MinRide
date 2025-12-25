@@ -40,6 +40,7 @@ public class Doubly<T> {
         while (temp != null) {
             System.out.print(temp.data + " ");
             temp = temp.next;
+            System.out.println();
         }
         System.out.println();
     }
@@ -93,5 +94,53 @@ public class Doubly<T> {
 
     public int getSize() {
         return size;
+    }
+
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    public T get(int index) {
+        if (index < 0 || index >= size) return null;
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp.data;
+    }
+
+    public boolean remove(T key) {
+        if (head == null) return false;
+
+        Node temp = head;
+        while (temp != null) {
+            if (temp.data.equals(key)) {
+                if (temp == head) {
+                    deleteFirst();
+                } else if (temp == tail) {
+                    deleteLast();
+                } else {
+                    temp.prev.next = temp.next;
+                    temp.next.prev = temp.prev;
+                    size--;
+                }
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }
+    
+    public Object[] toArray() {
+        Object[] arr = new Object[size];
+        Node temp = head;
+        int i = 0;
+        while (temp != null) {
+            arr[i++] = temp.data;
+            temp = temp.next;
+        }
+        return arr;
     }
 }
