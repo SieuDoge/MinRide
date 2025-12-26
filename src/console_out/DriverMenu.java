@@ -115,8 +115,8 @@ public class DriverMenu {
             System.out.println("  (Danh sách trống)");
             return;
         }
-        String[] headers = {"ID", "Name", "Rating", "Location (x,y)", "Status"};
-        String[][] data = new String[list.getSize()][5];
+        String[] headers = {"ID", "Name", "Rating", "Location", "Status", "Revenue"};
+        String[][] data = new String[list.getSize()][6];
         
         for (int i = 0; i < list.getSize(); i++) {
             Drivers d = list.get(i);
@@ -125,6 +125,7 @@ public class DriverMenu {
             data[i][2] = String.format("%.1f", d.getRating());
             data[i][3] = "(" + d.getX() + ", " + d.getY() + ")";
             data[i][4] = d.isAvailable() ? "Available" : "Busy";
+            data[i][5] = String.format("%,.0f", d.getRevenue());
         }
         
         ConsoleUtils.printTable(headers, data);
@@ -147,23 +148,67 @@ public class DriverMenu {
 
     private void updateDriverUI() {
         String id = getStringInput("Nhập ID tài xế cần sửa: ");
-        Drivers old = driverService.getDriverById(id);
-        if (old == null) {
+        Drivers d = driverService.getDriverById(id);
+        if (d == null) {
             printError("Không tìm thấy ID.");
             return;
         }
-        System.out.println("Thông tin hiện tại: " + old);
-        System.out.println(YELLOW + "Nhập thông tin mới (Để sửa):" + RESET);
 
-        String name = getStringInput("Tên mới: ");
-        double rating = getDoubleInput("Rating mới: ");
-        int x = getIntInput("X mới: ");
-        int y = getIntInput("Y mới: ");
+        String newName = d.getName();
+        int newX = d.getX();
+        int newY = d.getY();
+        // Rating cannot be edited manually here
 
-        if (driverService.updateDriver(id, name, rating, x, y)) {
-            printSuccess("Cập nhật thông tin thành công!");
-        } else {
-            printError("Lỗi khi cập nhật.");
+        boolean editing = true;
+        while (editing) {
+            clearConsole();
+            System.out.println(YELLOW + "--- CHỈNH SỬA THÔNG TIN TÀI XẾ ---" + RESET);
+            
+            printInfoCard("THÔNG TIN ĐANG SỬA (PREVIEW)",
+                new String[]{"ID", "Tên", "Rating", "Vị Trí", "Doanh Thu"},
+                new String[]{
+                    d.getId(), 
+                    newName, 
+                    d.getRating() + " ★ (Locked)",
+                    "(" + newX + "," + newY + ")",
+                    String.format("%,.0f VND", d.getRevenue())
+                }
+            );
+
+            System.out.println("\nChọn thông tin cần sửa:");
+            System.out.println("  1. Sửa Tên");
+            System.out.println("  2. Sửa Vị trí (Tọa độ X,Y)");
+            System.out.println(GREEN + "  0. Lưu thay đổi & Thoát" + RESET);
+            System.out.println(RED + "  9. Hủy bỏ (Không lưu)" + RESET);
+            
+            int choice = getIntInput(">> Chọn: ");
+
+            switch (choice) {
+                case 1:
+                    newName = getStringInput(">> Nhập tên mới: ");
+                    break;
+                case 2:
+                    newX = getIntInput(">> Nhập X mới: ");
+                    newY = getIntInput(">> Nhập Y mới: ");
+                    break;
+                case 0:
+                    // Pass current rating to preserve it
+                    if (driverService.updateDriver(id, newName, d.getRating(), newX, newY)) {
+                        printSuccess("Cập nhật thông tin tài xế thành công!");
+                    } else {
+                        printError("Lỗi khi cập nhật.");
+                    }
+                    editing = false;
+                    pause();
+                    break;
+                case 9:
+                    System.out.println("Đã hủy bỏ thao tác.");
+                    editing = false;
+                    pause();
+                    break;
+                default:
+                    printError("Chọn sai!");
+            }
         }
     }
 }

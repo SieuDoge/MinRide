@@ -28,7 +28,6 @@ public class CustomerMenu {
             printOption(4, "Xóa khách hàng");
             printOption(5, "Tìm kiếm (Tên/ID)");
             printOption(6, "Lọc theo Quận (District)");
-            printOption(7, "Đánh giá tài xế");
             printOption(0, "Quay lại");
             printLine();
 
@@ -47,8 +46,7 @@ public class CustomerMenu {
                     break;
                 case 3:
                     updateCustomerUI();
-                    pause();
-                    break;
+                    break; // No pause here, updateUI has its own flow
                 case 4:
                     String delId = getStringInput("Nhập ID cần xóa: ");
                     if (customerService.deleteCustomer(delId)) printSuccess("Xóa khách hàng thành công!");
@@ -73,40 +71,7 @@ public class CustomerMenu {
                         pause();
                         break;
                     }
-
-                    int currentCount = 0;
-                    int pageSize = 10;
-                    boolean keepViewing = true;
-
-                    while (keepViewing && currentCount < total) {
-                        // Lấy danh sách cho trang hiện tại
-                        Doubly<Customers> pageList = new Doubly<>();
-                        int limit = Math.min(currentCount + pageSize, total);
-
-                        for (int i = currentCount; i < limit; i++) {
-                            pageList.addLast(result.get(i));
-                        }
-
-                        System.out.println(CYAN + "\n--- Đang hiển thị từ " + (currentCount + 1) + " đến " + limit + " (Trong tổng số " + total + ") ---" + RESET);
-                        displayCustomersTable(pageList);
-
-                        currentCount = limit;
-
-                        // Kiểm tra nếu còn dữ liệu để xem
-                        if (currentCount < total) {
-                            String choiceNext = getStringInput(">> Bạn có muốn xem thêm 10 khách hàng tiếp theo? (y/n): ");
-                            if (!choiceNext.equalsIgnoreCase("y")) {
-                                keepViewing = false;
-                            }
-                        } else {
-                            System.out.println(GREEN + ">> Đã hiển thị hết danh sách." + RESET);
-                            keepViewing = false;
-                        }
-                    }
-                    pause();
-                    break;
-                case 7:
-                    rateDriverUI();
+                    displayCustomersTable(result);
                     pause();
                     break;
                 case 0:
@@ -117,25 +82,6 @@ public class CustomerMenu {
                     pause();
             }
         }
-    }
-    
-    private void rateDriverUI() {
-        System.out.println(YELLOW + "--- ĐÁNH GIÁ TÀI XẾ ---" + RESET);
-        
-        String drvId = getStringInput("Nhập ID Tài xế muốn đánh giá: ");
-        if (driverService.getDriverById(drvId) == null) {
-            printError("Không tìm thấy tài xế có ID: " + drvId);
-            return;
-        }
-        
-        int stars = getIntInput("Nhập số sao (1-5): ");
-        if (stars < 1 || stars > 5) {
-            printError("Số sao phải từ 1 đến 5.");
-            return;
-        }
-        
-        driverService.rateDriver(drvId, stars);
-        printSuccess("Đã đánh giá tài xế " + stars + " sao!");
     }
 
     private void displayCustomersTable(Doubly<Customers> list) {
@@ -172,17 +118,66 @@ public class CustomerMenu {
     }
 
     private void updateCustomerUI() {
-        String id = getStringInput("Nhập ID khách hàng: ");
-        if (customerService.getCustomerById(id) == null) {
+        String id = getStringInput("Nhập ID khách hàng cần sửa: ");
+        Customers c = customerService.getCustomerById(id);
+        
+        if (c == null) {
             printError("Không tìm thấy ID.");
+            pause();
             return;
         }
-        String name = getStringInput("Tên mới: ");
-        String district = getStringInput("Quận mới: ");
-        int x = getIntInput("X mới: ");
-        int y = getIntInput("Y mới: ");
 
-        customerService.updateCustomer(id, name, district, x, y);
-        printSuccess("Cập nhật thành công!");
+        // Temp variables
+        String newName = c.getName();
+        String newDistrict = c.getDistrict();
+        int newX = c.getX();
+        int newY = c.getY();
+
+        boolean editing = true;
+        while (editing) {
+            clearConsole();
+            System.out.println(YELLOW + "--- CHỈNH SỬA THÔNG TIN KHÁCH HÀNG ---" + RESET);
+            
+            // Show Live Preview Card
+            printInfoCard("THÔNG TIN ĐANG SỬA (PREVIEW)",
+                new String[]{"ID", "Tên", "Quận", "Vị Trí"},
+                new String[]{c.getId(), newName, newDistrict, "(" + newX + "," + newY + ")"}
+            );
+
+            System.out.println("\nChọn thông tin cần sửa:");
+            System.out.println("  1. Sửa Tên");
+            System.out.println("  2. Sửa Quận");
+            System.out.println("  3. Sửa Tọa độ (Vị trí)");
+            System.out.println(GREEN + "  0. Lưu thay đổi & Thoát" + RESET);
+            System.out.println(RED + "  9. Hủy bỏ (Không lưu)" + RESET);
+            
+            int choice = getIntInput(">> Chọn: ");
+            
+            switch (choice) {
+                case 1:
+                    newName = getStringInput(">> Nhập tên mới: ");
+                    break;
+                case 2:
+                    newDistrict = getStringInput(">> Nhập quận mới: ");
+                    break;
+                case 3:
+                    newX = getIntInput(">> Nhập X mới: ");
+                    newY = getIntInput(">> Nhập Y mới: ");
+                    break;
+                case 0:
+                    customerService.updateCustomer(id, newName, newDistrict, newX, newY);
+                    printSuccess("Đã lưu thông tin khách hàng!");
+                    editing = false;
+                    pause();
+                    break;
+                case 9:
+                    System.out.println("Đã hủy bỏ thao tác.");
+                    editing = false;
+                    pause();
+                    break;
+                default:
+                    printError("Chọn sai!");
+            }
+        }
     }
 }

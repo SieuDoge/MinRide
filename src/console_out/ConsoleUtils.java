@@ -97,6 +97,83 @@ public class ConsoleUtils {
         System.out.println(end + RESET);
     }
     
+    // --- INFO CARD BUILDER ---
+    public static void printInfoCard(String title, String[] labels, String[] values) {
+        if (labels.length != values.length) return;
+        
+        // 1. Calculate max lengths
+        int maxLabel = 0;
+        int maxValue = 0;
+        for(String s : labels) maxLabel = Math.max(maxLabel, getVisibleLength(s));
+        for(String s : values) maxValue = Math.max(maxValue, getVisibleLength(s));
+        
+        // 2. Determine Card Width
+        // Content structure: "| Label... : Value... |"
+        // Space logic: "| " (2) + Label (maxLabel) + ": " (2) + Value (maxValue) + " |" (2)
+        // Total minimal width = 2 + maxLabel + 2 + maxValue + 2 = maxLabel + maxValue + 6;
+        int minContentWidth = maxLabel + maxValue + 6;
+        int cardWidth = Math.max(MENU_WIDTH, minContentWidth); // cardWidth is the INNER width (dashes count)
+        
+        // 3. Draw Top Border
+        System.out.print(CYAN + "┌");
+        for(int i=0; i<cardWidth; i++) System.out.print("─");
+        System.out.println("┐" + RESET);
+        
+        // 4. Draw Title
+        int titleLen = getVisibleLength(title);
+        int padLeft = (cardWidth - titleLen) / 2;
+        int padRight = cardWidth - titleLen - padLeft;
+        
+        System.out.print(CYAN + "│" + RESET);
+        for(int i=0; i<padLeft; i++) System.out.print(" ");
+        System.out.print(BOLD + YELLOW + title.toUpperCase() + RESET);
+        for(int i=0; i<padRight; i++) System.out.print(" ");
+        System.out.println(CYAN + "│" + RESET);
+        
+        // 5. Draw Separator
+        System.out.print(CYAN + "├");
+        for(int i=0; i<cardWidth; i++) System.out.print("─");
+        System.out.println("┤" + RESET);
+        
+        // 6. Draw Content Rows
+        for(int i=0; i<labels.length; i++) {
+            String label = labels[i];
+            String value = values[i];
+            
+            System.out.print(CYAN + "│ " + RESET); // Left Border + Space
+            
+            // Print Label (Padded)
+            // Need to handle padding manually for ANSI safety
+            System.out.print(YELLOW + label + ":" + RESET);
+            int labelVis = getVisibleLength(label) + 1; // +1 for ':'
+            int labelPad = (maxLabel + 1) - labelVis; // +1 to match maxLabel + ':' width
+            for(int k=0; k<labelPad; k++) System.out.print(" ");
+            
+            System.out.print(" "); // Separator space
+            
+            // Print Value
+            System.out.print(value);
+            int valueVis = getVisibleLength(value);
+            
+            // Calculate Remaining Right Padding to hit Border
+            // Used so far: "│ " (visual 2?? No, border is 0 width in logic, inner is what matters)
+            // Inner used: 1 (space) + labelVis + labelPad + 1 (space) + valueVis
+            // Total Inner Used = 1 + (maxLabel + 1) + 1 + valueVis
+            
+            int totalInnerUsed = 1 + (maxLabel + 1) + 1 + valueVis;
+            int rightPad = cardWidth - totalInnerUsed;
+            
+            for(int k=0; k<rightPad; k++) System.out.print(" ");
+            
+            System.out.println(CYAN + "│" + RESET); // Right Border
+        }
+        
+        // 7. Bottom Border
+        System.out.print(CYAN + "└");
+        for(int i=0; i<cardWidth; i++) System.out.print("─");
+        System.out.println("┘" + RESET);
+    }
+
     // --- TABLE BUILDER (KEPT BUT UPDATED COLORS) ---
     public static void printTable(String[] headers, String[][] data) {
         if (headers == null || headers.length == 0) return;

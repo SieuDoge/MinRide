@@ -30,8 +30,8 @@ public class BookingMenu {
         while (!back) {
             clearConsole();
             printHeader("ĐẶT XE & ĐIỀU PHỐI");
-            printOption(1, "Tạo Yêu Cầu Đặt Xe (Booking)");
-            printOption(2, "Điều phối tự động (Auto Dispatch)");
+            printOption(1, "Đặt Xe Mới (Booking Now)");
+            printOption(2, "Xử lý Hàng Chờ (Process Queue)");
             printOption(3, "Lịch sử chuyến đi (Theo DriverID)");
             printOption(4, "Danh sách toàn bộ chuyến đi");
             printOption(5, "Tìm tài xế phù hợp (Advanced)");
@@ -74,6 +74,80 @@ public class BookingMenu {
             }
         }
     }
+    
+    public void processQueueUI() {
+        System.out.println(YELLOW + "--- XỬ LÝ HÀNG CHỜ (RETRY QUEUE) ---" + RESET);
+        
+        Rides[] pending = bookingService.getPendingRides();
+        if (pending.length == 0) {
+            printError("Hàng chờ trống! Không có yêu cầu nào cần xử lý.");
+            return;
+        }
+
+        System.out.println("Tìm thấy " + BOLD + pending.length + RESET + " yêu cầu đang chờ.\n");
+        
+        int success = 0;
+        int fail = 0;
+
+        for (Rides ride : pending) {
+            System.out.println(CYAN + ">> Đang thử lại đơn: " + ride.getRideId() + "..." + RESET);
+            
+            // Retry Auto Assign
+            Drivers matchedDriver = bookingService.autoAssignDriver(ride, driverService, customerService);
+            
+            if (matchedDriver != null) {
+                // SUCCESS
+                success++;
+                Customers c = customerService.getCustomerById(ride.getCustomerId());
+                String cusName = (c != null) ? c.getName() : "Unknown";
+
+                printInfoCard("GHÉP THÀNH CÔNG (QUEUE MATCHED)",
+                    new String[]{"Mã Chuyến", "Khách Hàng", "Tài Xế", "Vị Trí Xe", "Khoảng Cách", "Cước Phí"},
+                    new String[]{
+                        ride.getRideId(),
+                        cusName,
+                        matchedDriver.getName() + " (ID: " + matchedDriver.getId() + ")",
+                        "(" + matchedDriver.getX() + "," + matchedDriver.getY() + ")",
+                        String.format("%.2f km", ride.getDistance()),
+                        String.format("%,.0f VND", ride.getFare())
+                    }
+                );
+                
+                // Process Data
+                driverService.addRevenue(matchedDriver.getId(), ride.getFare());
+                
+                Rides finalizedRide = new Rides(ride.getRideId(), ride.getCustomerId(), matchedDriver.getId(), ride.getDistance());
+                rideService.addRide(finalizedRide);
+                bookingService.removeRideFromQueue(ride);
+                file_io.saveRide(finalizedRide, "rides.csv");
+                
+                System.out.println(GREEN + "   ✔ Đã xóa khỏi hàng chờ và tạo chuyến đi." + RESET);
+                
+                // --- RATING FLOW ---
+                String rateChoice = getStringInput("   >> Đánh giá tài xế? (y/n): ");
+                if (rateChoice.equalsIgnoreCase("y")) {
+                    int stars = getIntInput("      -> Số sao (1-5): ");
+                    if (stars >= 1 && stars <= 5) {
+                        driverService.rateDriver(matchedDriver.getId(), stars);
+                        System.out.println(GREEN + "      ✔ Đã đánh giá!" + RESET);
+                    }
+                }
+
+            } else {
+                // FAIL AGAIN
+                fail++;
+                System.out.println(RED + "   ✘ Vẫn chưa tìm thấy tài xế phù hợp. (Tiếp tục chờ)" + RESET);
+            }
+            System.out.println();
+            try { Thread.sleep(500); } catch (Exception e) {}
+        }
+        
+        System.out.println(YELLOW + "----------------------------------------" + RESET);
+        System.out.println("KẾT QUẢ XỬ LÝ:");
+        System.out.println(GREEN + "✔ Ghép được: " + success);
+        System.out.println(RED + "✘ Còn lại:   " + fail);
+    }
+
     
     private void findSuitableDriversUI() {
         System.out.println(YELLOW + "--- TÌM KIẾM TÀI XẾ NÂNG CAO ---" + RESET);
@@ -120,8 +194,8 @@ public class BookingMenu {
         
         ConsoleUtils.printTable(headers, data);
     }
-    
-    private void displayRidesTable(Doubly<Rides> list) {
+
+    public void displayRidesTable(Doubly<Rides> list) {
         if (list.getSize() == 0) {
             System.out.println("  (Danh sách trống)");
             return;
@@ -140,8 +214,8 @@ public class BookingMenu {
         ConsoleUtils.printTable(headers, data);
     }
 
-    private void createBookingUI() {
-        System.out.println(YELLOW + "--- TẠO BOOKING MỚI ---" + RESET);
+    public void createBookingUI() {
+        System.out.println(YELLOW + "--- TẠO BOOKING MỚI (ADMIN MODE) ---" + RESET);
         String cusId = getStringInput("Nhập ID Khách hàng: ");
         Customers c = customerService.getCustomerById(cusId);
 
@@ -149,74 +223,82 @@ public class BookingMenu {
             printError("Không tìm thấy khách hàng này.");
             return;
         }
+        createBookingUI(c);
+    }
 
-        System.out.println("Vị trí đón (Tự động lấy): (" + BOLD + c.getX() + ", " + c.getY() + RESET + ")");
+    public void createBookingUI(Customers c) {
+        // Show Customer Card
+        printInfoCard("THÔNG TIN KHÁCH HÀNG", 
+            new String[]{"Tên", "Quận", "Vị trí", "ID"}, 
+            new String[]{c.getName(), c.getDistrict(), "(" + c.getX() + "," + c.getY() + ")", c.getId()}
+        );
+        System.out.println();
+
         System.out.println("Nhập địa điểm đến:");
         int destX = getIntInput("   -> Tọa độ X: ");
         int destY = getIntInput("   -> Tọa độ Y: ");
 
         String rideId = "R_" + System.currentTimeMillis() % 10000;
-        Rides newRide = bookingService.createBooking(rideId, cusId, c.getX(), c.getY(), destX, destY);
+        Rides newRide = bookingService.createBooking(rideId, c.getId(), c.getX(), c.getY(), destX, destY);
         bookingService.addToQueue(newRide);
 
-        printSuccess("Yêu cầu đã được đẩy vào hàng chờ (Queue)!");
-        System.out.println("   - Mã chuyến: " + rideId);
-        System.out.printf("   - Khoảng cách: %.2f km\n", newRide.getDistance());
-        System.out.printf("   - Giá cước: %.0f VND\n", newRide.getFare());
-    }
+        System.out.println("\nĐang tìm tài xế gần nhất...");
+        try { Thread.sleep(1000); } catch (Exception e) {} // Simulate searching
 
-    private void processQueueUI() {
-        System.out.println(YELLOW + "--- ĐIỀU PHỐI TỰ ĐỘNG (AUTO DISPATCH) ---" + RESET);
-        
-        Rides[] pending = bookingService.getPendingRides();
-        if (pending.length == 0) {
-            printError("Hàng chờ rỗng! Không có yêu cầu nào.");
-            return;
-        }
+        // IMMEDIATE AUTO-DISPATCH
+        Drivers matchedDriver = bookingService.autoAssignDriver(newRide, driverService, customerService);
 
-        System.out.println("Đang xử lý " + pending.length + " yêu cầu trong hàng chờ...\n");
-        
-        int successCount = 0;
-        int failCount = 0;
+        if (matchedDriver != null) {
+            // SUCCESS: DRIVER FOUND
+            printInfoCard("GHÉP XE THÀNH CÔNG (MATCH FOUND)",
+                new String[]{"Mã Chuyến", "Khách Hàng", "Tài Xế", "Vị Trí Xe", "Khoảng Cách", "Cước Phí"},
+                new String[]{
+                    newRide.getRideId(),
+                    c.getName(),
+                    matchedDriver.getName() + " (ID: " + matchedDriver.getId() + ")",
+                    "(" + matchedDriver.getX() + "," + matchedDriver.getY() + ") - " + String.format("%.1f★", matchedDriver.getRating()),
+                    String.format("%.2f km", newRide.getDistance()),
+                    String.format("%,.0f VND", newRide.getFare())
+                }
+            );
 
-        for (Rides ride : pending) {
-            System.out.print(">> Xử lý Ride " + BOLD + ride.getRideId() + RESET + "... ");
+            // Add Revenue
+            driverService.addRevenue(matchedDriver.getId(), newRide.getFare());
             
-            // Auto Assign
-            Drivers matchedDriver = bookingService.autoAssignDriver(ride, driverService, customerService);
+            // Finalize Ride
+            Rides finalizedRide = new Rides(newRide.getRideId(), newRide.getCustomerId(), matchedDriver.getId(), newRide.getDistance());
+            rideService.addRide(finalizedRide);
             
-            if (matchedDriver != null) {
-                // Success
-                System.out.println(GREEN + "THÀNH CÔNG!" + RESET);
-                System.out.println("   -> Tài xế: " + matchedDriver.getName() + " (Rating: " + matchedDriver.getRating() + ")");
-                
-                // Finalize Ride Object
-                Rides finalizedRide = new Rides(ride.getRideId(), ride.getCustomerId(), matchedDriver.getId(), ride.getDistance());
-                
-                // Persist Data
-                rideService.addRide(finalizedRide);
-                bookingService.removeRideFromQueue(ride);
-                file_io.saveRide(finalizedRide, "rides.csv");
-                
-                successCount++;
-            } else {
-                // Fail
-                System.out.println(RED + "THẤT BẠI" + RESET + " (Không tìm thấy tài xế phù hợp)");
-                failCount++;
+            // Remove from Queue
+            bookingService.removeRideFromQueue(newRide); 
+            file_io.saveRide(finalizedRide, "rides.csv");
+
+            printSuccess("Tài xế đang đến đón!");
+            
+            // --- RATING FLOW ---
+            System.out.println();
+            String rateChoice = getStringInput(">> Chuyến đi hoàn tất! Bạn có muốn đánh giá tài xế ngay? (y/n): ");
+            if (rateChoice.equalsIgnoreCase("y")) {
+                int stars = getIntInput("   -> Nhập số sao (1-5): ");
+                if (stars >= 1 && stars <= 5) {
+                    driverService.rateDriver(matchedDriver.getId(), stars);
+                    printSuccess("Cảm ơn bạn đã đánh giá " + stars + " sao!");
+                } else {
+                    printError("Số sao không hợp lệ (Bỏ qua).");
+                }
             }
-            
-            // Small delay for effect
-            try { Thread.sleep(500); } catch (Exception e) {}
-        }
 
-        System.out.println("\n" + CYAN + "----------------------------------------" + RESET);
-        System.out.println("KẾT QUẢ ĐIỀU PHỐI:");
-        System.out.println(GREEN + "✔ Ghép thành công: " + successCount);
-        System.out.println(RED + "✘ Chưa ghép được:  " + failCount);
-        System.out.println(CYAN + "----------------------------------------" + RESET);
-        
-        if (failCount > 0) {
-            System.out.println(ITALIC + "Các chuyến chưa ghép được sẽ được giữ lại trong hàng chờ." + RESET);
+        } else {
+            // FAILURE: NO DRIVER
+             printInfoCard("CHƯA TÌM THẤY TÀI XẾ",
+                new String[]{"Mã Chuyến", "Trạng Thái", "Lý Do"},
+                new String[]{
+                    newRide.getRideId(),
+                    RED + "Đang chờ (Pending)" + YELLOW,
+                    "Không có tài xế phù hợp gần đây."
+                }
+            );
+            System.out.println(ITALIC + "Yêu cầu của bạn đã được lưu vào hàng chờ. Hệ thống sẽ thử lại sau." + RESET);
         }
     }
 }
