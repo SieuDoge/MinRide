@@ -1,14 +1,15 @@
-
-import console_out.BookingMenu;
-import static console_out.ConsoleUtils.*;
-import console_out.CustomerMenu;
-import console_out.DashboardMenu;
-import console_out.DriverMenu;
 import services.booking_service;
 import services.customer_service;
 import services.driver_service;
 import services.ride_service;
 import utils.file_io;
+import console_out.DriverMenu;
+import console_out.CustomerMenu;
+import console_out.BookingMenu;
+import console_out.DashboardMenu;
+import console_out.AdminInterface;
+import console_out.CustomerInterface;
+import static console_out.ConsoleUtils.*;
 
 public class Main {
     private static driver_service driverService = new driver_service();
@@ -20,43 +21,39 @@ public class Main {
         showIntro();
         loadDataWithAnimation();
 
-        DriverMenu driverMenu = new DriverMenu(driverService);
-        CustomerMenu customerMenu = new CustomerMenu(customerService, driverService);
-        BookingMenu bookingMenu = new BookingMenu(bookingService, rideService, customerService, driverService);
-        DashboardMenu dashboardMenu = new DashboardMenu(driverService, customerService, rideService);
-
+        // Portal Loop
         boolean running = true;
         while (running) {
             clearConsole();
+            printHeader("HỆ THỐNG MINRIDE - CỔNG ĐĂNG NHẬP");
             
-            // NEW STANDARD MENU STYLE
-            printHeader("HỆ THỐNG QUẢN LÝ ĐẶT XE MINRIDE");
+            System.out.println(CYAN + "   Chào mừng đến với MinRide! Vui lòng chọn vai trò:" + RESET);
+            System.out.println();
             
-            printOption(1, "Quản lý Tài xế (Drivers)");
-            printCenteredRow("║", ITALIC + "   -> Thêm, Xóa, Sửa, Tìm kiếm...", YELLOW);
+            printOption(1, "Quản Trị Viên (Administrator)");
+            printCenteredRow("║", "Quản lý hệ thống, tài xế, điều phối...", ITALIC + YELLOW);
             
-            printOption(2, "Quản lý Khách hàng (Customers)");
-            printCenteredRow("║", ITALIC + "   -> Danh sách, Lọc Quận, Đánh giá...", YELLOW);
-            
-            printOption(3, "Đặt xe & Điều phối (Dispatch)");
-            printCenteredRow("║", ITALIC + "   -> Booking, Ghép tài xế, Queue...", YELLOW);
-            
-            printOption(4, "Thống kê (Dashboard)");
-            printCenteredRow("║", ITALIC + "   -> Tổng quan, Doanh thu, Báo cáo...", YELLOW);
+            printOption(2, "Khách Hàng (Customer)");
+            printCenteredRow("║", "Đặt xe, xem lịch sử, cá nhân...", ITALIC + BLUE);
             
             printBorderLine("╠", "═", "╣");
-            printOption(5, RED + "Thoát chương trình (Exit)" + RESET);
-            printLine(); // Bottom border
+            printOption(0, RED + "Thoát chương trình (Exit)" + RESET);
+            printLine();
 
-            System.out.println();
-            int choice = getIntInput(">> Mời chọn chức năng (1-5): ");
+            int choice = getIntInput(">> Mời chọn (1, 2, 0): ");
 
             switch (choice) {
-                case 1: driverMenu.show(); break;
-                case 2: customerMenu.show(); break;
-                case 3: bookingMenu.show(); break;
-                case 4: dashboardMenu.show(); break;
-                case 5:
+                case 1:
+                    // Admin Flow
+                    AdminInterface admin = new AdminInterface(driverService, customerService, rideService, bookingService);
+                    admin.show();
+                    break;
+                case 2:
+                    // Customer Flow
+                    CustomerInterface customer = new CustomerInterface(driverService, customerService, rideService, bookingService);
+                    customer.show();
+                    break;
+                case 0:
                     System.out.println(YELLOW + "\n Đang lưu dữ liệu và thoát..." + RESET);
                     running = false;
                     break;
