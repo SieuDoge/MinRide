@@ -1,13 +1,51 @@
-ID,Name,District,x,y
-1,Le Thi Hoa,Q1,3,3
-2,Tran Van Minh,Q3,6,2
-4,Pham Thi Lan,Q5,10,1
-5,Vu Van Hung,Q3,5,5
-6,Doan Thi Mai,BT,12,12
-7,Hoang Van Tung,Q1,4,4
-8,Bui Thi Cuc,Q7,20,18
-9,Dang Van Kien,Q5,9,3
-10,Ly Thi Thu,BT,14,10
-11,Ngo Van Long,Q1,1,1
-12,Trinh Thi Tuyet,Q3,7,6
-13,Nguyen Huu Huynh,ThuDuc,9,10
+﻿ID,Name,District,x,y
+1,Pham Ngoc Mai,Binh Thanh,70,8
+2,Phan Thanh Hung,Q3,22,86
+3,Tran Thu Mai,Q5,99,20
+4,Hoang Minh Hung,Q4,33,70
+5,Vu Ngoc Nam,Q4,12,40
+6,Pham Van Dat,Tan Binh,75,53
+7,Phan Thu Tuan,Go Vap,37,91
+8,Huynh Thi Dat,Tan Binh,23,83
+9,Nguyen Gia Nam,Tan Binh,0,64
+10,Phan Thi Kiet,Q3,55,89
+11,Dang Minh Kiet,Tan Binh,94,77
+12,Huynh Gia Mai,Q4,44,82
+13,Huynh Van Hoa,Q10,54,12
+14,Le Minh Hoa,Q10,39,92
+15,Vo Huu Mai,Binh Thanh,39,14
+16,Pham Minh Cuong,Q4,86,46
+17,Nguyen Thanh Mai,Q3,70,46
+18,Pham Van Mai,Binh Thanh,90,64
+19,Phan Huu Linh,Q10,15,57
+20,Tran Gia Tien,Q7,91,70
+21,Phan Ngoc Linh,Binh Thanh,16,16
+22,Vu Xuan Linh,Q7,46,1
+23,Pham Xuan Kiet,Binh Thanh,91,59
+24,Pham Huu Hung,Q10,17,57
+25,Dang Minh Linh,Q7,68,72
+26,Phan Minh Dat,Phu Nhuan,21,76
+27,Vu Thi Tien,Q10,54,90
+28,Nguyen Minh Linh,Binh Thanh,77,53
+29,Dang Van Dat,Q3,97,96
+30,Vu Xuan Nam,Phu Nhuan,57,79
+31,Phan Ngoc Tien,Q3,16,67
+32,Nguyen Van Nam,Q4,38,54
+33,Dang Van Tuan,Q10,82,53
+34,Pham Huu Hung,Q7,8,68
+35,Vu Van Linh,Q5,91,68
+36,Hoang Xuan Nam,Q4,59,73
+37,Pham Minh Hoa,Q5,60,28
+38,Vo Huu Nam,Q10,51,83
+39,Dang Xuan Tien,Binh Thanh,91,87
+40,Vu Gia Linh,Q4,90,1
+41,Hoang Huu Linh,Q5,40,78
+42,Hoang Thu Kiet,Q5,61,6
+43,Hoang Thanh Mai,Q3,63,50
+44,Phan Thanh Dat,Q10,46,65
+45,Huynh Thi Linh,Q3,49,29
+46,Tran Xuan Mai,Binh Thanh,49,49
+47,Huynh Ngoc Hung,Q3,16,9
+48,Huynh Thi Tien,Q7,31,84
+49,Vu Thanh Nam,Phu Nhuan,21,46
+50,Pham Thi Dat,Q4,13,8
