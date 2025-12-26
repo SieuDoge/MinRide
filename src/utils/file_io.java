@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class file_io {
-    private static final String DATA_Dir = "core/src/data/";
+    private static final String DATA_Dir = "src/data/";
 
     // Read Drivers.csv
     public static Doubly<Drivers> loadDrivers(String filename) {
@@ -29,7 +29,7 @@ public class file_io {
                 }
 
                 try {
-                    // Cấu trúc CSV: ID, Name, Rating, x, y [cite: 39]
+                    // Cấu trúc CSV: ID, Name, Rating, x, y, Revenue(Optional)
                     String[] parts = line.split(",");
                     if (parts.length < 5) continue;
 
@@ -38,9 +38,14 @@ public class file_io {
                     double rating = Double.parseDouble(parts[2].trim());
                     int x = Integer.parseInt(parts[3].trim());
                     int y = Integer.parseInt(parts[4].trim());
+                    
+                    double revenue = 0.0;
+                    if (parts.length >= 6) {
+                        revenue = Double.parseDouble(parts[5].trim());
+                    }
 
                     // Tạo đối tượng Driver và thêm vào list
-                    Drivers driver = new Drivers(id, name, rating, x, y);
+                    Drivers driver = new Drivers(id, name, rating, x, y, revenue);
                     list.addLast(driver);
 
                 } catch (NumberFormatException e) {
@@ -144,9 +149,9 @@ public class file_io {
     public static void saveDriver(Drivers driver, String filename) {
         String filePath = DATA_Dir + filename;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
-            // Format: ID, Name, Rating, x, y
+            // Format: ID, Name, Rating, x, y, Revenue
             String line = driver.getId() + "," + driver.getName() + "," + driver.getRating() + "," +
-                          driver.getX() + "," + driver.getY();
+                          driver.getX() + "," + driver.getY() + "," + driver.getRevenue();
             bw.write(line);
             bw.newLine();
             System.out.println("Đã lưu driver: " + driver.getName());
@@ -189,13 +194,13 @@ public class file_io {
         String filePath = DATA_Dir + filename;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             // Write Header
-            bw.write("ID,Name,Rating,x,y");
+            bw.write("ID,Name,Rating,x,y,Revenue");
             bw.newLine();
 
             for (int i = 0; i < list.getSize(); i++) {
                 Drivers d = list.get(i);
                 String line = d.getId() + "," + d.getName() + "," + d.getRating() + "," +
-                        d.getX() + "," + d.getY();
+                        d.getX() + "," + d.getY() + "," + d.getRevenue();
                 bw.write(line);
                 bw.newLine();
             }
