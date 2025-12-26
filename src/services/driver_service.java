@@ -112,16 +112,48 @@ public class driver_service {
         Drivers oldD = getDriverById(id);
         if(oldD == null) return false;
         
+        // Preserve revenue
+        double currentRevenue = oldD.getRevenue();
+        
         // Remove old (memory only)
         driverTree.delete(oldD);
         driverList.remove(oldD);
         
         // Add new updated node
-        Drivers newD = new Drivers(id, newName, newRating, newX, newY);
+        Drivers newD = new Drivers(id, newName, newRating, newX, newY, currentRevenue);
         addDriver(newD);
         
         file_io.rewriteDrivers(driverList, "drivers.csv");
         return true;
+    }
+    
+    // Add Revenue (Task 3)
+    public void addRevenue(String driverId, double amount) {
+        Drivers d = getDriverById(driverId);
+        if (d != null) {
+            d.addRevenue(amount);
+            // Persist changes immediately to avoid data loss
+            file_io.rewriteDrivers(driverList, "drivers.csv");
+        }
+    }
+    
+    // Top K Income Drivers (Task 3 & 4) - Using Merge Sort
+    public Doubly<Drivers> getTopIncomeDrivers(int k) {
+        Object[] arrObjs = driverList.toArray();
+        Drivers[] arr = new Drivers[arrObjs.length];
+        for(int i=0; i<arrObjs.length; i++) arr[i] = (Drivers)arrObjs[i];
+
+        // Sort Descending by Revenue
+        merge.mergeSort(arr, 0, arr.length - 1, (d1, d2) -> Double.compare(d2.getRevenue(), d1.getRevenue()));
+
+        Doubly<Drivers> result = new Doubly<>();
+        int count = 0;
+        for (Drivers d : arr) {
+            if (count >= k) break;
+            result.addLast(d);
+            count++;
+        }
+        return result;
     }
 
     // Sort by Rating (Asc/Desc)

@@ -67,7 +67,7 @@ public class booking_service {
         models.Customers c = cs.getCustomerById(ride.getCustomerId());
         if (c == null) return null;
 
-        // 2. Find best drivers (Radius 10km, Sort Criteria 3: Distance -> Rating)
+        // 2. Find best drivers (Radius 10.0km, Sort Criteria 3: Distance -> Rating)
         Doubly<Drivers> candidates = ds.findDriversWithCriteria(c.getX(), c.getY(), 10.0, 3);
         
         if (candidates.getSize() == 0) return null;
