@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8add55b4-9c5a-400b-87d0-d5b3d26c9e4d" name="Changes" comment="" />
+    <list default="true" id="8add55b4-9c5a-400b-87d0-d5b3d26c9e4d" name="Changes" comment="main core">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="repository" />
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "SieuDoge"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/SieuDoge/MinRide.git",
+    "accountId": "883665c7-a2ca-4b9d-a107-f56409b7cc91"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="37NV9oKllp1ohhGjjPdxzvgokUe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true"
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Project/DSA/NowChallenge/MinRide"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -31,6 +65,55 @@
       <option name="presentableId" value="Default" />
       <updated>1766743370163</updated>
     </task>
+    <task id="LOCAL-00001" summary="Remove App and Gradle">
+      <option name="closed" value="true" />
+      <created>1766743773084</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1766743773084</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Change folder dir">
+      <option name="closed" value="true" />
+      <created>1766743813087</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1766743813087</updated>
+    </task>
+    <task id="LOCAL-00003" summary="algorithms">
+      <option name="closed" value="true" />
+      <created>1766743933039</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1766743933039</updated>
+    </task>
+    <task id="LOCAL-00004" summary="dsa">
+      <option name="closed" value="true" />
+      <created>1766743939822</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1766743939822</updated>
+    </task>
+    <task id="LOCAL-00005" summary="main core">
+      <option name="closed" value="true" />
+      <created>1766743953387</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1766743953387</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Remove App and Gradle" />
+    <MESSAGE value="Change folder dir" />
+    <MESSAGE value="algorithms" />
+    <MESSAGE value="dsa" />
+    <MESSAGE value="main core" />
+    <option name="LAST_COMMIT_MESSAGE" value="main core" />
   </component>
 </project>
