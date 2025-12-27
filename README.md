@@ -34,6 +34,7 @@ Mở Terminal/Command Prompt tại thư mục gốc của dự án (`MinRide/`) 
 ```powershell
 mkdir bin
 javac -d bin -sourcepath src (Get-ChildItem -Recurse src/*.java)
+java -cp bin Main
 ```
 
 **Linux / MacOS:**
